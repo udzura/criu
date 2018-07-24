@@ -115,6 +115,13 @@ int compel_interrupt_task(int pid)
 {
 	int ret;
 
+	ret = ptrace(PTRACE_DETACH, pid, NULL,0);
+	if (ret) {
+		pr_warn("detached failed : %d (%s)\n", pid, strerror(errno));
+	} else {
+		pr_warn("already attached, detached: %d\n", pid);
+	}
+
 	ret = ptrace(PTRACE_SEIZE, pid, NULL, 0);
 	if (ret) {
 		/*
