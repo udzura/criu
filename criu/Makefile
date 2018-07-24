@@ -82,6 +82,9 @@ $(obj)/criu: $(PROGRAM-BUILTINS)
 	$(call msg-link, $@)
 	$(Q) $(CC) $(CFLAGS) $^ $(LIBS) $(WRAPFLAGS) $(LDFLAGS) $(GMONLDOPT) -rdynamic -o $@
 
+$(obj)/libcrtools.so: $(PROGRAM-BUILTINS)
+	$(call msg-link, $@)
+	$(Q) $(CC) $(CFLAGS) $^ $(LIBS) $(WRAPFLAGS) $(LDFLAGS) $(GMONLDOPT) -shared -Wl,-soname=libcrtools.so.1 -rdynamic -o $@
 
 #
 # Clean the most, except generated c files
